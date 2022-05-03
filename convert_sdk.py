@@ -26,9 +26,6 @@ regex_GXWndPlane = re.compile(r'(typedef)(.|\n)*(GXWndPlane;)')
 regex_DispCnt = re.compile(r'(\/\/ Display)(.|\n)*(GXSDispCnt;)')
 regex_BGCnt = re.compile(r'(typedef)(.|\n)*(GXBg2ControlLargeBmp;)')
 
-print("Copying...")
-distutils.dir_util.copy_tree("./includebak", "./include")
-
 def isLibHeader(txt: str):
 	for x in libHeaders:
 		if x in txt:
