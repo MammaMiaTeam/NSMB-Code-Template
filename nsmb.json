@@ -9,7 +9,7 @@
 		"threads": "1",
 
 		"source": "source",
-		"filesystem": "__tmp",
+		"filesystem": "FILESYSTEM_PATH",
 		"output": "",
 		"toolchain": "FIREFLOWER_PATH/toolchain",
 		"build": "build",
@@ -36,7 +36,7 @@
 		"symbols7": "symbols7.x",
 		"symbols9": "symbols9.x",
 		"allow-eabi-extensions": false,
-		"library": "GCC_PATH/lib/gcc/arm-none-eabi/10.2.1"
+		"library": "GCC_PATH/lib/gcc/arm-none-eabi/VERSION"
 
 	},
 
