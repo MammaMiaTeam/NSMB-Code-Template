@@ -5,13 +5,15 @@ Custom code patching template for New Super Mario Bros. (DS)
 
 The `extra` folder contains files necessary for the NSMB-Code-Reference:
 - `divisions.s` redirects GCC's software division calls to the hardware math accelerator
-- `ostream.cpp` `ostream.hpp` allows printing messages to an external emulator console
+- `ostream.cpp` `ostream.hpp` allows printing messages to an external emulator console (currently required for the NSMB-Code-Reference to work)
 
 The `util` folder contains various additional utilities:
 - `asmprint.h` defines an assembly macro to print messages in assembly code
 - `instantboot.cpp` instantly redirects to a given stage by "skipping" the Boot and StageIntro scenes
 
 The `example.cpp` file shows some usage examples of the fireflower toolchain together with the NSMB-Code-Reference.
+
+The `endingscript.cpp` file shows how you can replace the game ending credits script.
 
 ## How to setup
 
