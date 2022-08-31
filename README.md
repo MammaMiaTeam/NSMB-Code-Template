@@ -44,12 +44,12 @@ Go in the Fireflower directory and create a folder named `toolchain`, then creat
 
 Download the `ffc.h` and `fid.h` files from the `internal` folder of the Fireflower repo and put them in the `internal` folder you have just created.
 
-When you're done, add your Fireflower root directory to Windows's enviroment variable `Path`.
+When you're done, add your Fireflower root directory to Windows's system enviroment variable `Path`.
+
+Make sure to to reboot your computer once set/create enviroment variables.
 
 ### [Fireflower + NSMBe] Creating the FIREFLOWER_ROOT variable
-Create a new enviroment variable called `FIREFLOWER_ROOT` and set it to the Fireflower root directory.
-
-*We are unsure if User variables work, so we recommend you change the System ones*
+Create a new system enviroment variable called `FIREFLOWER_ROOT` and set it to the Fireflower root directory.
 
 ### [Fireflower + NSMBe] Setting up the editor
 After downloading the NSMBe fork, go to the editor executable directory and open `NSMBe5.exe.config`.
@@ -66,9 +66,11 @@ Run the conversion script `convert_sdk.py` and wait until the process finishes.
 Download the NSMB-Code-Reference repo and extract `symbols7.x`, `symbols9.x` and the `include` folder in the template root.
 
 Open `nsmb.json` and apply the following modifications:
-- change `FILESYSTEM_PATH` to `__tmp` if you are using for `Fireflower + NSMBe`, otherwise change it to a ROM extraction path of your choice.
+- change `FILESYSTEM_PATH` to `__tmp` if you are using `Fireflower + NSMBe`, otherwise change it to a ROM extraction path of your choice.
 - change `FIREFLOWER_PATH` to your Fireflower directory.
 - change every instance of `GCC_PATH` and `VERSION` to your ARM GCC installation directory and to the version you downloaded (example: `10.2.1`).
+
+Make sure to use forward slashed (`/`) instead of backslashes (`\`) for every path you set in the json file.
 
 ### [Fireflower + NSMBe] Patching the game with your code
 Open the ROM in the template's root with the NSMBe fork and go to the `Tools/Options` tab.
