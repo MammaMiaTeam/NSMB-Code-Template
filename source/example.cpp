@@ -1,15 +1,12 @@
 #include "nsmb.h"
 
 
-// Replaces the Stage::collectCoin function to change the player's runtimePowerup to PowerupState::Mini once a coin is collected
+// Replaces the Stage::collectCoin function to not do anything
 
 rlnk(0x02020354)
-void replaceCollectCoin(u8 playerID) {
-	
-	Player& player = *Game::getPlayer(playerID);
-
-	player.runtimePowerup = PowerupState::Mini;
-}
+asm_func void replaceCollectCoin() {asm(R"(
+	bx		lr					@ Return
+)");}
 
 // Hooks into Goomba::updateBahp to set his velocity.y to 8.0fx instead of the function argument
 
