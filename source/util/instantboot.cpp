@@ -1,10 +1,13 @@
 #include "nsmb.h"
 
 
-// Instantly boots the game into the StageScene at given stage group, stage and area
-// Originally written by TheGameratorT
+/*
+	Utility for faster testing which instantly boots the game into the given stage group, stage and area.
 
-rlnk(0x020CC720, 1) // BootScene::onUpdate
+	Originally written by TheGameratorT
+*/
+
+ncp_call(0x020CC720, 1) // BootScene::onUpdate
 static void replaceBootEnd() {
 
 	static constexpr u8 group = StageGroups::World1;
@@ -28,15 +31,15 @@ static void replaceBootEnd() {
 	);
 }
 
-rlnk(0x020CC5A8, 1) // BootScene::onUpdate
+ncp_call(0x020CC5A8, 1) // BootScene::onUpdate
 static void nullifyBootTimer(u16& timer) {
 	timer = 0;
 }
 
 // BootScene::onCreate
-over_asm(0x020CCBF0, 1, "b 0x020CCD90"); // Skip BootScene creation
+ncp_repl(0x020CCBF0, 1, "b 0x020CCD90"); // Skip BootScene creation
 
 // StageIntroScene::onRender
-over_asm(0x02152884, 54, "mov r0, #1\nbx lr"); // Disable stage intro rendering
+ncp_repl(0x02152884, 54, "mov r0, #1\nbx lr"); // Disable stage intro rendering
 // StageIntroScene::onUpdate
-over_asm(0x0215285C, 54, "mov r0, #0"); // Nullify stage intro duration
+ncp_repl(0x0215285C, 54, "mov r0, #0"); // Nullify stage intro duration

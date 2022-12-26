@@ -1,85 +1,92 @@
-# NSMB-Code-Patching-Template
-Custom code patching template for New Super Mario Bros. (DS)
+# NSMB-Code-Template
+Custom code patching template for New Super Mario Bros. (DS) (US)
+
+## Disclaimer
+This code patching template is essentially just a basic enviroment for the NCPatcher tool to work with and it was created to make custom code insertion as easy as possible for new users.
+
+If you are looking for technical details on how to use the patcher or if you plan on doing more advanced things (such as dealing with the arm7 or manipulating overlays), please refer to the [NCPatcher readme](https://github.com/TheGameratorT/NCPatcher).
+
+Please also note that NCPatcher does **not** support code written for the Fireflower and NSMBe patchers and the process of translating the code from a patcher to another heavily differs from case to case.
+
+If you need support, feel free to join the [NSMB Central discord server](https://discord.gg/x7gr3M9).
 
 ## Source
-
-The `extra` folder contains files necessary for the NSMB-Code-Reference:
-- `divisions.s` redirects GCC's software division calls to the hardware math accelerator
-- `ostream.cpp` `ostream.hpp` allows printing messages to an external emulator console (currently required for the NSMB-Code-Reference to work)
+The `extra` folder contains files necessary for the NSMB-Code-Reference to work properly:
+- `divisions.s` redirects GCC's AEABI functions to the ones already present in the rom.
+- `ostream.cpp` `ostream.hpp` allows printing messages to an external emulator console.
 
 The `util` folder contains various additional utilities:
-- `asmprint.h` defines an assembly macro to print messages in assembly code
-- `instantboot.cpp` instantly redirects to a given stage by "skipping" the Boot and StageIntro scenes
+- `asmprint.h` defines an assembly macro to print messages in assembly code.
+- `instantboot.cpp` instantly redirects to a given stage by "skipping" the Boot and StageIntro scenes.
 
-The `example.cpp` file shows some usage examples of the fireflower toolchain together with the NSMB-Code-Reference.
+`example.cpp` shows some usage examples of the NCPatcher tool together with the NSMB-Code-Reference.
 
-The `endingscript.cpp` file shows how you can replace the game ending credits script.
+`endingscript.cpp` shows how you can replace the game ending credits script.
 
 ## How to setup
-
-### Requirements
-- [NSMB-Code-Reference](https://github.com/MammaMiaTeam/NSMB-Code-Reference)
-- [TheGameratorT's NSMBe fork](https://github.com/TheGameratorT/NSMB-Editor/releases) (For NSMBe + Fireflower)
-- [Fireflower Toolchain](https://github.com/MammaMiaTeam/Fireflower)
-- [ARM GCC](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
-- Nitro SDK 3.0 + Nitro System
 
 ### Choosing the patching environment setup
 The template can be set up in the following ways:
 
-- Fireflower Standalone
-- Fireflower + NSMBe (Recommended)
+- NCPatcher standalone
+- NCPatcher + NSMBe (Recommended)
 
-`Fireflower Standalone` requires the manual extraction of the ROM via nds-extract before running Fireflower.
+`NCPatcher standalone` requires manual ROM extraction and building via nds-extract and nds-build respectively before and after running NCPatcher.
 
-`Fireflower + NSMBe` uses an integration of Fireflower in the editor, implemented by TheGameratorT in his fork, and does not require manual ROM extraction.
+`NCPatcher + NSMBe` uses an integration of NCPatcher in the editor, implemented by ItzTacos in the MammaMiaTeam fork, and so does not require manual ROM extraction and building.
+
+### Requirements
+- [MammaMiaTeam NSMBe fork](https://github.com/MammaMiaTeam/NSMB-Editor/releases) [NSMBe + NCPatcher]
+- [nds-extract & nds-build](https://github.com/MammaMiaTeam/Fireflower/releases) [NCPatcher standalone]
+- [NSMB-Code-Reference](https://github.com/MammaMiaTeam/NSMB-Code-Reference)
+- [NCPatcher](https://github.com/TheGameratorT/NCPatcher/releases)
+- [ARM GCC](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
+- Nitro SDK 3.0 + Nitro System (These are copyrighted libraries from Nintendo which we **cannot** give a direct link to)
+- *One legal way of obtaining it would be [going back in time](https://www.google.com/search?q=wayback+machine) and acquiring a legit license from Nintendo*
 
 ### Installing ARM GCC
-After downloading GCC, proceed to install the compiler toolchain in a directory **without** whitespaces.
+Download the GCC installer (`.exe` file) under the `AArch32 bare-metal target (arm-none-eabi)` section from the link given above.
 
-### Setting up Fireflower
-Download the latest build of Fireflower and extract it in a path **without** whitespaces (e.g. `C:/Programs/Fireflower`).
+After downloading GCC, proceed to install the compiler toolchain in a directory **without** whitespaces (e.g. `C:/Programs/arm-gcc`).
 
-Go in the Fireflower directory and create a folder named `toolchain`, then create another folder named `internal` inside it.
+Once the installing process has finished make sure to toggle the `Add path to environment variable` option before closing the installation wizard.
 
-Download the `ffc.h` and `fid.h` files from the `internal` folder of the Fireflower repo and put them in the `internal` folder you have just created.
+### Setting up NCPatcher
+Download the latest build of NCPatcher and extract it in a directory **without** whitespaces (e.g. `C:/Programs/NCPatcher`).
 
-When you're done, add your Fireflower root directory to Windows's system enviroment variable `Path`.
+When you're done, add your NCPatcher directory to Windows's system environment variable `Path`.
 
-Make sure to to reboot your computer once set/create enviroment variables.
-
-### [Fireflower + NSMBe] Creating the FIREFLOWER_ROOT variable
-Create a new system enviroment variable called `FIREFLOWER_ROOT` and set it to the Fireflower root directory.
-
-### [Fireflower + NSMBe] Setting up the editor
-After downloading the NSMBe fork, go to the editor executable directory and open `NSMBe5.exe.config`.
-
-Change the value of the `UseFireflower` field near the end of the file to `True`
+Make sure to to reboot your computer after setting the environment variables.
 
 ### Preparing the template
-Download this repo and extract it a new directory, making sure the path has **no whitespaces** and put your NSMB ROM inside it.
+Create a new folder in a path **without whitespaces**, this will be the template root.
 
-Copy the `include` folder of the Nitro SDK 3.0 and Nitro System in the newly created folder.
+Download this repo, extract it in the newly created folder, and put your clean NSMB ROM inside it.
 
-Run the conversion script `convert_sdk.py` and wait until the process finishes.
+Copy the `include` folder of the Nitro SDK 3.0 and Nitro System in the template root folder.
 
-Download the NSMB-Code-Reference repo and extract `symbols7.x`, `symbols9.x` and the `include` folder in the template root.
+Run the conversion script `convert_sdk.py` and wait until the process has finished.
 
-Open `nsmb.json` and apply the following modifications:
-- change `FILESYSTEM_PATH` to `__tmp` if you are using `Fireflower + NSMBe`, otherwise change it to a ROM extraction path of your choice.
-- change `FIREFLOWER_PATH` to your Fireflower directory.
-- change every instance of `GCC_PATH` and `VERSION` to your ARM GCC installation directory and to the version you downloaded (example: `10.2.1`).
+Download the NSMB-Code-Reference repo and extract `symbols7.x`, `symbols9.x` and the `include` folder in the template root directory.
 
-Make sure to use forward slashed (`/`) instead of backslashes (`\`) for every path you set in the json file.
+Open `ncpatcher.json` and change `FILESYSTEM_PATH` to `__tmp` if you are using `NCPatcher + NSMBe`, otherwise change it to a ROM extraction path of your choice.
 
-### [Fireflower + NSMBe] Patching the game with your code
-Open the ROM in the template's root with the NSMBe fork and go to the `Tools/Options` tab.
+- Make sure to use forward slashed (`/`) instead of backslashes (`\`) for every path you set in the json file.
 
-Here, there are two buttons which may be of interest:
-- `run 'Fireflower' and insert` extracts the ROM, runs Fireflower and finally deletes the extracted filesystem.
-- `Clean build` cleans the Fireflower build by deleting the `build` folder (`backup` doesn't get deleted for safety reasons)
+### [NCPatcher standalone] Preparing the template
+Open `buildrules.txt` and change `FILESYSTEM_PATH` to the same filesystem path specified in `ncpatcher.json`
 
-### [Fireflower standalone] Patching the game with your code
-Run the nds-extract **CLI** utility and extract the ROM into the folder you specified in `nsmb.json`
+### [NCPatcher + NSMBe] Patching the game with your code
+After downloading the NSMBe fork linked above, open the ROM in the template root folder and go to the `Tools/Options` tab.
 
-Run Fireflower and you are done
+Code patching will make use of the following interactions:
+- `Code patching method` is used to select which patching method will be used, so make sure it is set to `NCPatcher`.
+- `Compile and insert` extracts the ROM, runs NCPatcher and finally deletes the extracted filesystem.
+- `Clean build` cleans the NCPatcher build by deleting the `build` folder (`backup` doesn't get deleted for safety reasons).
+
+### [NCPatcher standalone] Patching the game with your code
+Run the nds-extract **CLI** utility and extract the ROM into the folder you specified in `ncpatcher.json`.
+
+Run NCPatcher from command line in the template root folder to patch the extracted rom with your code.
+
+Run the nds-build **CLI** tool and build the rom by using the edited `buildrules.txt` as the build rules file.

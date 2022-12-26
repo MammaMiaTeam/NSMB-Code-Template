@@ -3,9 +3,14 @@
 #include "nsmb/math/vector.h"
 #include "extra/fx.hpp"
 
-// Utilily that allows for printing in C++ code
-// Usage is the same as std::cout and it supports dec, hex, bin, lowercase and uppercase tokens
-// Currently these files are required for the NSMB Code Reference to work
+
+/*
+	Utilily that allows for printing in C++ code
+
+	Usage is the same as std::cout and it supports dec, hex, bin, lowercase and uppercase tokens
+	
+	Currently this utility is required for the NSMB Code Reference to work
+*/
 
 namespace log
 {

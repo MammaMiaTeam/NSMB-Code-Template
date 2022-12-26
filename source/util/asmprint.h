@@ -1,9 +1,18 @@
 #pragma once
 
 
-// Assembly macro that allows printing
-// Usage example:
-// print "test %r0% %r1%\n"
+/*
+	Assembly macro that allows printing
+
+	Usage example:
+
+	func_mla:
+		mul r0, r1
+		print "mul: %r0%\n"
+		add r0, r2
+		print "add: %r0%\n"
+		bx lr
+*/
 
 #ifdef NTR_DEBUG
 asm(R"(

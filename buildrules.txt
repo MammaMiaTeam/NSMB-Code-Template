@@ -1,0 +1,17 @@
+rom_header FILESYSTEM_PATH\header.bin
+arm9_entry KEEP
+arm9_load KEEP
+arm7_entry KEEP
+arm7_load KEEP
+fnt FILESYSTEM_PATH\fnt.bin
+file_mode ADJUST
+arm9 FILESYSTEM_PATH\arm9.bin
+arm7 FILESYSTEM_PATH\arm7.bin
+arm9ovt FILESYSTEM_PATH\arm9ovt.bin
+arm7ovt FILESYSTEM_PATH\arm7ovt.bin
+icon FILESYSTEM_PATH\banner.bin
+rsa_sig FILESYSTEM_PATH\rsasig.bin
+data FILESYSTEM_PATH\root
+ovt_repl_flag 0xFF
+ov9 FILESYSTEM_PATH\overlay9
+ov7 FILESYSTEM_PATH\overlay7

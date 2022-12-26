@@ -2,6 +2,8 @@
 
 
 /*
+	Template file to allow easy ending credits script editing
+
 	End::ScriptEntry { string, page, y position, palette, multipage flag }
 
 	- Due to the game using the char graphic index in the string chars, you are not supposed to use any standard string literal for this purpose
@@ -23,13 +25,14 @@
 	- Any entry with string == nullptr counts as script terminator (you can use the End::scriptTerminator variable)
 
 	- A max of 128 characters can be loaded at the same time (even if not visible), terminators and spaces excluded
-	- Since this code replaces the original script in the binary, a static_assert has been added to avoid overwriting other data
+	  Since this code replaces the original script in the binary, a static_assert has been added to avoid overwriting other data
 
 	- The slideshow is not synced with the bottom screen so once the game reaches the end of the script the music will fade out
 	  Because of that, try to keep the pages count as close as possible to the original (36 pages) one to avoid a huge delay between the end of the script and the cutscene
 */
 
-over(0x020EA678, 8) static constexpr End::ScriptEntry script[] = {
+ncp_over(0x020EA678, 8)
+static constexpr End::ScriptEntry script[] = {
 	
 	// Page 0
 	{"abcdefg"end,				0,	75, End::ScriptEntry::Red,	false},
