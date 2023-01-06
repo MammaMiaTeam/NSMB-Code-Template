@@ -41,6 +41,7 @@ The template can be set up in the following ways:
 - [NSMB-Code-Reference](https://github.com/MammaMiaTeam/NSMB-Code-Reference)
 - [NCPatcher](https://github.com/TheGameratorT/NCPatcher/releases)
 - [ARM GCC](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
+- [Python 3](https://www.python.org/downloads/)
 - Nitro SDK 3.0 + Nitro System (These are copyrighted libraries from Nintendo which we **cannot** give a direct link to)
 - *One legal way of obtaining it would be [going back in time](https://www.google.com/search?q=wayback+machine) and acquiring a legit license from Nintendo*
 
@@ -65,7 +66,7 @@ Download this repo, extract it in the newly created folder, and put your clean N
 
 Copy the `include` folder of the Nitro SDK 3.0 and Nitro System in the template root folder.
 
-Run the conversion script `convert_sdk.py` and wait until the process has finished.
+Run the conversion script `convert_sdk.py` (preferable with the command `py -3 convert_sdk.py`) and wait until the process has finished.
 
 Download the NSMB-Code-Reference repo and extract `symbols7.x`, `symbols9.x` and the `include` folder in the template root directory.
 
