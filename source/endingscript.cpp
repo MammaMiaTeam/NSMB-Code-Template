@@ -1,4 +1,4 @@
-#include "nsmb.h"
+#include "nsmb.hpp"
 
 
 /*
@@ -48,7 +48,7 @@ static constexpr End::ScriptEntry script[] = {
 	// Page 3
 	{"skull"end,				3,	75, End::ScriptEntry::Blue,	false},
 
-	End::scriptTerminator, // Terminator
+	End::ScriptTerminator, // Terminator
 };
 
 static_assert(NTR_ARRAY_SIZE(script) < 115, "Script size out of bounds");

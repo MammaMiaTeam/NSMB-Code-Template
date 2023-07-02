@@ -1,4 +1,4 @@
-#include "nsmb.h"
+#include "nsmb.hpp"
 
 
 // Replaces the Stage::collectCoin function to not do anything

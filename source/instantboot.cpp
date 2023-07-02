@@ -1,4 +1,4 @@
-#include "nsmb.h"
+#include "nsmb.hpp"
 
 
 /*
@@ -10,14 +10,14 @@
 ncp_call(0x020CC720, 1) // BootScene::onUpdate
 static void replaceBootEnd() {
 
-	static constexpr u8 group = StageGroups::World1;
-	static constexpr u8 stage = Game::getStage(group, 1);
-	static constexpr u8 area = 0;
+	static constexpr u8 Group = StageGroups::World1;
+	static constexpr u8 Stage = Game::getStage(Group, 1);
+	static constexpr u8 Area = 0;
 
 	Game::loadLevel(
 		SceneID::StageIntro,	// scene
 		0,						// vs mode
-		group, stage, area,		// group (world), stage, (sub) area
+		Group, Stage, Area,		// group (world), stage, (sub) area
 		0, 1,					// player ID, player mask
 		0, 0,					// character 1, character 2
 		1,						// powerup
@@ -29,6 +29,7 @@ static void replaceBootEnd() {
 		0, 						// challenge mode
 		-1						// rng seed
 	);
+	
 }
 
 ncp_call(0x020CC5A8, 1) // BootScene::onUpdate

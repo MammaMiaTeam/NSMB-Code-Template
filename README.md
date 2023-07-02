@@ -1,9 +1,11 @@
 # NSMB-Code-Template
-Custom code patching template for New Super Mario Bros. (DS) (US)
+### Custom code patching template for New Super Mario Bros. (DS) (US)
+
+This is essentially just a basic enviroment for the NCPatcher tool to work with and it was created to make custom code insertion as easy as possible for new users.
+
+It also offers a few utilities in the `source` folder that either make testing faster or allow editing of certain hardcoded parts of the game.
 
 ## Disclaimer
-This code patching template is essentially just a basic enviroment for the NCPatcher tool to work with and it was created to make custom code insertion as easy as possible for new users.
-
 If you are looking for technical details on how to use the patcher or if you plan on doing more advanced things (such as dealing with the arm7 or manipulating overlays), please refer to the [NCPatcher readme](https://github.com/TheGameratorT/NCPatcher).
 
 Please also note that NCPatcher does **not** support code written for the Fireflower and NSMBe patchers and the process of translating the code from a patcher to another heavily differs from case to case.
@@ -11,17 +13,13 @@ Please also note that NCPatcher does **not** support code written for the Firefl
 If you need support, feel free to join the [NSMB Central discord server](https://discord.gg/x7gr3M9).
 
 ## Source
-The `extra` folder contains files necessary for the NSMB-Code-Reference to work properly:
-- `divisions.s` redirects GCC's AEABI functions to the ones already present in the rom.
-- `ostream.cpp` `ostream.hpp` allows printing messages to an external emulator console.
+`endingscript.cpp` shows how you can replace the game ending credits script.
 
-The `util` folder contains various additional utilities:
-- `asmprint.h` defines an assembly macro to print messages in assembly code.
-- `instantboot.cpp` instantly redirects to a given stage by "skipping" the Boot and StageIntro scenes.
+`instantboot.cpp` instantly redirects to a given stage by "skipping" the Boot and StageIntro scenes.
+
+`divisions.s` redirects GCC's AEABI functions to the ones already present in the rom.
 
 `example.cpp` shows some usage examples of the NCPatcher tool together with the NSMB-Code-Reference.
-
-`endingscript.cpp` shows how you can replace the game ending credits script.
 
 ## How to setup
 
@@ -43,7 +41,7 @@ The template can be set up in the following ways:
 - [ARM GCC](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
 - [Python 3](https://www.python.org/downloads/)
 - Nitro SDK 3.0 + Nitro System (These are copyrighted libraries from Nintendo which we **cannot** give a direct link to)
-- *One legal way of obtaining it would be [going back in time](https://www.google.com/search?q=wayback+machine) and acquiring a legit license from Nintendo*
+###### *One legal way of obtaining it would be [going back in time](https://www.google.com/search?q=wayback+machine) and acquiring a legit license from Nintendo*
 
 ### Installing ARM GCC
 Download the GCC installer (`.exe` file) under the `AArch32 bare-metal target (arm-none-eabi)` section from the link given above.
