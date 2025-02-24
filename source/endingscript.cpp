@@ -1,4 +1,4 @@
-#include "nsmb.hpp"
+#include <nsmb.hpp>
 
 
 /*
@@ -32,7 +32,7 @@
 */
 
 ncp_over(0x020EA678, 8)
-static constexpr End::ScriptEntry script[] = {
+static constexpr End::ScriptEntry Script[] = {
 	
 	// Page 0
 	{"abcdefg"end,				0,	75, End::ScriptEntry::Red,	false},
