@@ -64,7 +64,7 @@ Download this repo, extract it in the newly created folder, and put your clean N
 
 Copy the `include` folder of the Nitro SDK 3.0 and Nitro System in the template root folder.
 
-Run the conversion script `convert_sdk.py` (preferably using the command `py -3 convert_sdk.py`) and wait until the process has finished.
+Run the conversion script by either double-clicking `run_convert_sdk.bat` (windows only) or executing `convert_sdk.py` directly (preferably using the command `py -3 convert_sdk.py`). Wait for the process to complete.
 
 Download the NSMB-Code-Reference repo and extract `symbols7.x`, `symbols9.x` and the `include` folder in the template root directory.
 
