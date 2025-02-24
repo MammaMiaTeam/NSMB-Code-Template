@@ -7,7 +7,8 @@
 import re
 import glob
 import sys
-import distutils.dir_util
+import os.path
+
 
 # Headers to ignore the global to local header change
 libHeaders = ['stdio.h', 'stdarg.h']
@@ -377,3 +378,10 @@ __bgcnt_decl(GXBg2ControlLargeBmp,
 
 	with open(filename, 'w') as f:
 		f.writelines(new_lines)
+
+
+if not os.path.isfile("./include/nitro.h"):
+	print("WARNING: NITRO-SDK was not found in include directory")
+
+if not os.path.isfile("./include/nnsys.h"):
+	print("WARNING: NITRO-System was not found in include directory")
