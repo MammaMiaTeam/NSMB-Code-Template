@@ -51,4 +51,4 @@ static constexpr End::ScriptEntry Script[] = {
 	End::ScriptTerminator, // Terminator
 };
 
-static_assert(NTR_ARRAY_SIZE(script) < 115, "Script size out of bounds");
+static_assert(NTR_ARRAY_SIZE(Script) < 115, "Script size out of bounds");
