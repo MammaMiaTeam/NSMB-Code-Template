@@ -10,8 +10,23 @@ import sys
 import os.path
 
 
+# Patch revision, stamped into nitro.h and nnsys.h.
+# Only bump this when the way the SDK is patched changes,
+# never for Python compatibility fixes or script cleanups.
+patchRevision = '1.0'
+
 # Headers to ignore the global to local header change
 libHeaders = ['stdio.h', 'stdarg.h']
+
+# The SDK headers are a mix of ASCII and Shift-JIS (Japanese comments),
+# the output however is always written as UTF-8.
+sourceEncodings = ['utf-8', 'shift_jis']
+
+# Files that get the patch revision stamp
+stampedHeaders = ['./include/nitro.h', './include/nnsys.h']
+
+# Kept aligned with the "Project:" and "File:" fields of the SDK headers
+patchMarker = 'Patch:    GCC'
 
 print("Compiling RegEx...")
 
@@ -26,6 +41,7 @@ regex_reg_bit = re.compile(r'(reg_([^\s]+))\s*((\&|\|)=)')
 regex_GXWndPlane = re.compile(r'(typedef)(.|\n)*(GXWndPlane;)')
 regex_DispCnt = re.compile(r'(\/\/ Display)(.|\n)*(GXSDispCnt;)')
 regex_BGCnt = re.compile(r'(typedef)(.|\n)*(GXBg2ControlLargeBmp;)')
+regex_file_field = re.compile(r'^([ \t]*File:[ \t]+\S+)[ \t]*$', re.MULTILINE)
 
 def isLibHeader(txt: str):
 	for x in libHeaders:
@@ -33,7 +49,23 @@ def isLibHeader(txt: str):
 			return True
 	return False
 
+def detectEncoding(path: str):
+	with open(path, 'rb') as f:
+		data = f.read()
+	for encoding in sourceEncodings:
+		try:
+			data.decode(encoding)
+			return encoding
+		except UnicodeDecodeError:
+			continue
+	raise RuntimeError(f'Could not decode {path} with any of {sourceEncodings}')
+
 print("Applying...")
+
+# Nothing is written until every file has been processed,
+# so that a failure halfway through never leaves a partially patched SDK.
+patched_files = []
+
 for filename in glob.iglob('./include/**/*.h', recursive=True):
 
 	unix_filename = filename.replace('\\', '/')
@@ -50,9 +82,16 @@ for filename in glob.iglob('./include/**/*.h', recursive=True):
 
 	new_lines = []
 
-	with open(filename, 'r') as f:
+	with open(filename, 'r', encoding=detectEncoding(filename)) as f:
 
 		text = ''.join(f.readlines())
+
+		# The SDK must be patched from clean files, patching twice corrupts it
+		if(unix_filename in stampedHeaders and patchMarker in text):
+			sys.exit(
+				f'ERROR: {unix_filename} has already been patched, '
+				'restore the original SDK files before running this script.'
+			)
 
 		if(unix_filename == './include/nitro.h'):
 			# Prevent warning in comment
@@ -333,6 +372,11 @@ __bgcnt_decl(GXBg2ControlLargeBmp,
 			# Defined but not used
 			text = text.replace("static", "NNS_G2D_INLINE")
 
+		# Stamp the patch revision below the "File:" field
+		if(unix_filename in stampedHeaders):
+			text = regex_file_field.sub(
+				f'\\1\n  {patchMarker} {patchRevision}', text, count=1)
+
 		# Swap SDK_CW and SDK_GCC
 		text = text.replace("SDK_CW", "SDK_TMP")
 		text = text.replace("SDK_GCC", "SDK_CW")
@@ -376,7 +420,11 @@ __bgcnt_decl(GXBg2ControlLargeBmp,
 
 			new_lines.append(newLine + '\n')
 
-	with open(filename, 'w') as f:
+	patched_files.append((filename, new_lines))
+
+print("Writing...")
+for filename, new_lines in patched_files:
+	with open(filename, 'w', encoding='utf-8') as f:
 		f.writelines(new_lines)
 
 
