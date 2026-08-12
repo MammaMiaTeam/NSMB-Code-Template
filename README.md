@@ -40,7 +40,7 @@ The template can be set up in the following ways:
 - [NCPatcher](https://github.com/TheGameratorT/NCPatcher/releases)
 - [ARM GCC](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
 - [Python 3](https://www.python.org/downloads/)
-- Nitro SDK 3.0[<sup>1</sup>](#notes) + Nitro System[<sup>2</sup>](#notes) (These are copyrighted libraries from Nintendo which we **cannot** give a direct link to)
+- Nitro SDK 3.0[^nitro-sdk] + Nitro System[^nitro-system] (These are copyrighted libraries from Nintendo which we **cannot** give a direct link to)
 ###### *One legal way of obtaining it would be [going back in time](https://www.google.com/search?q=wayback+machine) and acquiring a legit license from Nintendo*
 
 ### Installing ARM GCC
@@ -90,22 +90,19 @@ Run NCPatcher from command line in the template root folder to patch the extract
 
 Run the nds-build **CLI** tool and build the rom by using the edited `buildrules.txt` as the build rules file.
 
-## Notes
-1\.  
-> Common filename: NitroSDK-3_0-060125.zip  
-> Size: 58349333  
-> CRC32: c023d994  
-> MD5: eed72648a1a10a622ee65b7ee5d3e7f4  
-> SHA1: 36b7d2f66b828f5575e96c4c689c2aaa592304f6  
-> SHA256: b791c9e331bc0b2026c58c8cec0ea74a496b0594ea03c272af3f75b726a656cf
+[^nitro-sdk]: Common filename: NitroSDK-3_0-060125.zip  
+    Size: 58349333  
+    CRC32: c023d994  
+    MD5: eed72648a1a10a622ee65b7ee5d3e7f4  
+    SHA1: 36b7d2f66b828f5575e96c4c689c2aaa592304f6  
+    SHA256: b791c9e331bc0b2026c58c8cec0ea74a496b0594ea03c272af3f75b726a656cf
 
-This is simply the version the template was tested against, other 3.x releases very likely work fine as well. Compared to it, the `include` folder of 3.1 (`SDK_VERSION_DATE 20060522`) adds a handful of files and changes others, but the only things it drops are `MI_GetPhiClock`, `MI_SetPhiClock` and the internal `OSi_SetProtectionRegion`, none of which the template, the NSMB-Code-Reference or `convert_sdk.py` make any use of.
+    This is simply the version the template was tested against, other 3.x releases very likely work fine as well. Compared to it, the `include` folder of 3.1 (`SDK_VERSION_DATE 20060522`) adds a handful of files and changes others, but the only things it drops are `MI_GetPhiClock`, `MI_SetPhiClock` and the internal `OSi_SetProtectionRegion`, none of which the template, the NSMB-Code-Reference or `convert_sdk.py` make any use of.
 
-2\.  
-> Common filename: NNS_Library-20050901.zip  
-> Size: 47232364  
-> CRC32: 178eca79  
-> MD5: c3aae82f56e3abca4a84775fdef34685  
-> SHA1: 020810e7f22071348c32c30a4c496e76e4773b99  
-> SHA256: bd69ec542820e7d2bf0b51b1c8f894bcaa9ff13da1b1a318ce330276fdf43eca
+[^nitro-system]: Common filename: NNS_Library-20050901.zip  
+    Size: 47232364  
+    CRC32: 178eca79  
+    MD5: c3aae82f56e3abca4a84775fdef34685  
+    SHA1: 020810e7f22071348c32c30a4c496e76e4773b99  
+    SHA256: bd69ec542820e7d2bf0b51b1c8f894bcaa9ff13da1b1a318ce330276fdf43eca
 
