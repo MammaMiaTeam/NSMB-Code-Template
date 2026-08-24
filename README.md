@@ -34,8 +34,8 @@ trying them.
 - Nitro SDK 3.x and Nitro System headers
 - A clean US New Super Mario Bros. ROM
 
-The Nitro SDK and Nitro System are copyrighted Nintendo libraries and are not
-distributed by this project.
+The Nitro SDK and Nitro System are copyrighted Nintendo libraries, so this
+project neither distributes nor links to them; search for them yourself.
 
 ### Install the tools
 
@@ -74,18 +74,42 @@ arm-none-eabi-g++ --version
 The template uses C++23, so older distro toolchains such as GCC 10 are not
 sufficient; use a current Arm release when necessary.
 
+## Set up the shared libraries
+
+The Nitro SDK and NSMB-Code-Reference are shared between projects, so they live
+outside this repository and are found through two environment variables.
+
+1. Create a directory for the SDK, then copy the `include` directories from
+   Nitro SDK 3.x and Nitro System into it, producing `include/nitro.h` and
+   `include/nnsys.h`.
+2. Convert those headers for GCC. Copy `convert_sdk.py`, and
+   `run_convert_sdk.bat` on Windows, from this repository into that directory
+   and run the converter there:
+   - Windows: double-click `run_convert_sdk.bat`, or run
+     `py -3 convert_sdk.py`.
+   - Linux/macOS: run `python3 convert_sdk.py`.
+
+   Delete the copied scripts afterwards; the conversion is only done once.
+3. Clone
+   [NSMB-Code-Reference](https://github.com/MammaMiaTeam/NSMB-Code-Reference)
+   outside this repository as well.
+4. Point `NSMB_NITRO_ROOT` at the SDK directory and `NSMBREF_ROOT` at the
+   NSMB-Code-Reference checkout:
+
+| Shell | Command |
+| --- | --- |
+| bash / zsh | `export NSMB_NITRO_ROOT=/path/to/NitroSDK` in `~/.bashrc` or `~/.zshrc` |
+| fish | `set -Ux NSMB_NITRO_ROOT /path/to/NitroSDK` |
+| Windows | `setx NSMB_NITRO_ROOT C:\path\to\NitroSDK`, then reopen the terminal |
+
+Set `NSMBREF_ROOT` the same way. `ncpatcher.yaml` reads both, so every project
+that follows this layout shares one copy of the SDK and of the reference
+instead of keeping its own.
+
 ## Set up the project
 
 1. Clone or download this repository.
 2. Put a clean US ROM at `NSMB.nds` in the project root.
-3. Copy the `include` directories from Nitro SDK 3.x and Nitro System into the
-   project root, producing `include/nitro.h` and `include/nnsys.h`.
-4. From the project root, convert those headers:
-   - Windows: double-click `run_convert_sdk.bat`, or run
-     `py -3 convert_sdk.py`.
-   - Linux/macOS: run `python3 convert_sdk.py`.
-5. Copy NSMB-Code-Reference's `include` contents and `symbols9.x` into the
-   project root.
 
 Validate the finished setup, then build:
 

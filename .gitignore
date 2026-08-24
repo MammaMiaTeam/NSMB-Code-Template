@@ -1,8 +1,3 @@
-# Libraries
-/lib/
-/include/
-symbols9.x
-
 # IDE
 /.vs/
 /.vscode/

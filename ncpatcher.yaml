@@ -19,11 +19,10 @@ flags:
 targets:
   arm9:
     build: build/arm9
-    symbols: symbols9.x
-    includes: [include, source]
+    includes: ["${env.NSMB_NITRO_ROOT}/include", "${env.NSMBREF_ROOT}/include", source]
     defines: [SDK_ARM9, arm9_start=0x021901E0]
     flags:
       common: [-mcpu=arm946e-s, -marm]
     regions:
       - dest: main
-        sources: source/**
+        sources: [source/**, "${env.NSMBREF_ROOT}/symbols9.c"]
