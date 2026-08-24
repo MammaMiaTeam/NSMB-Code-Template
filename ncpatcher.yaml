@@ -1,0 +1,29 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/TheGameratorT/NCPatcher/main/schema/ncpatcher.schema.json
+version: 2
+
+rom:
+  file: NSMB.nds
+  output: build/NSMB.nds
+  backup: backup
+
+toolchain: arm-none-eabi-
+
+defines: [SDK_GCC, SDK_FINALROM]
+flags:
+  common: [-masm-syntax-unified, -mno-unaligned-access, -mfloat-abi=soft, -mabi=aapcs]
+  c: [-Os, -fno-short-enums, -fomit-frame-pointer, -ffast-math, -fno-builtin, -nostdlib, -nodefaultlibs, -nostartfiles]
+  cpp: [-Os, -fno-short-enums, -fomit-frame-pointer, -ffast-math, -fno-builtin, -fno-rtti, -fno-exceptions, -std=c++23, -nostdlib, -nodefaultlibs, -nostartfiles]
+  asm: [-Os, "-x assembler-with-cpp", -fomit-frame-pointer]
+  ld: [-lgcc, -lc, -lstdc++, --use-blx]
+
+targets:
+  arm9:
+    build: build/arm9
+    symbols: symbols9.x
+    includes: [include, source]
+    defines: [SDK_ARM9, arm9_start=0x021901E0]
+    flags:
+      common: [-mcpu=arm946e-s, -marm]
+    regions:
+      - dest: main
+        sources: source/**

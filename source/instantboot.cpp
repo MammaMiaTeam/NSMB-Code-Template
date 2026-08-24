@@ -8,7 +8,7 @@
 */
 
 ncp_call(0x020CC720, 1) // BootScene::onUpdate
-static void replaceBootEnd() {
+void replaceBootEnd() {
 
 	static constexpr u8 Group = StageGroups::World1;
 	static constexpr u8 Stage = Game::getStage(Group, 1);
@@ -33,7 +33,7 @@ static void replaceBootEnd() {
 }
 
 ncp_call(0x020CC5A8, 1) // BootScene::onUpdate
-static void nullifyBootTimer(u16& timer) {
+void nullifyBootTimer(u16& timer) {
 	timer = 0;
 }
 

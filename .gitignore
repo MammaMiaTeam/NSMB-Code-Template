@@ -2,14 +2,10 @@
 /lib/
 /include/
 symbols9.x
-symbols7.x
 
 # IDE
 /.vs/
 /.vscode/
-
-# Filesystem
-/__tmp/
 
 # ROM
 NSMB.nds

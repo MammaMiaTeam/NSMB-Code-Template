@@ -4,14 +4,14 @@
 // Replaces the Stage::collectCoin function to not do anything
 
 ncp_jump(0x02020354)
-NTR_NAKED static void replaceCollectCoin() {asm(R"(
+NTR_NAKED void replaceCollectCoin() {asm(R"(
 	bx		lr					@ Return
 )");}
 
 // Hooks into Goomba::updateBahp to set his velocity.y to 4.0fx instead of the function argument
 
 ncp_jump(0x020E2408, 10)
-NTR_NAKED static void higherGoombaBahp() {asm(R"(
+NTR_NAKED void higherGoombaBahp() {asm(R"(
 	ldr		r1, =0x4000
 	cmp		r2, #0				@ Replaced instruction
 	b		0x020E2408 + 4		@ Branch back
